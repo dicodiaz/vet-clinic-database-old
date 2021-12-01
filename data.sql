@@ -37,7 +37,7 @@ VALUES
     5
   );
 
--- Insert more data
+-- Insert more data.
 INSERT INTO
   animals (
     name,
@@ -146,7 +146,7 @@ FROM
   animals;
 
 /* Now, take a deep breath and... Inside a transaction delete all records in the animals table, then roll back the transaction.
- After the roll back verify if all records in the animals table still exist. After that you can start breath as usual ;) */
+ After the roll back verify if all records in the animals table still exist. After that you can start breath as usual ;). */
 BEGIN;
 
 TRUNCATE animals;
@@ -169,7 +169,7 @@ FROM
  Update all animals' weight to be their weight multiplied by -1.
  Rollback to the savepoint
  Update all animals' weights that are negative to be their weight multiplied by -1.
- Commit transaction */
+ Commit transaction. */
 BEGIN;
 
 DELETE FROM
@@ -192,5 +192,130 @@ SET
   weight_kg = weight_kg * -1
 WHERE
   weight_kg < 0;
+
+COMMIT;
+
+-- Insert data to new tables.
+INSERT INTO
+  owners(full_name, age)
+VALUES
+  ('Sam Smith', 34),
+  ('Jennifer Orwell', 19),
+  ('Bob', 45),
+  ('Melody Pond', 77),
+  ('Dean Winchester', 14),
+  ('Jodie Whittaker', 38);
+
+INSERT INTO
+  species(name)
+VALUES
+  ('Pokemon'),
+  ('Digimon');
+
+-- Modify your inserted animals so it includes the species_id value.
+BEGIN;
+
+UPDATE
+  animals
+SET
+  species_id = (
+    SELECT
+      id
+    FROM
+      species
+    WHERE
+      name = 'Digimon'
+  )
+WHERE
+  name LIKE '%mon';
+
+UPDATE
+  animals
+SET
+  species_id = (
+    SELECT
+      id
+    FROM
+      species
+    WHERE
+      name = 'Pokemon'
+  )
+WHERE
+  species_id IS NULL;
+
+COMMIT;
+
+-- Modify your inserted animals to include owner information (owner_id).
+BEGIN;
+
+UPDATE
+  animals
+SET
+  owner_id = (
+    SELECT
+      id
+    FROM
+      owners
+    WHERE
+      full_name = 'Sam Smith'
+  )
+WHERE
+  name = 'Agumon';
+
+UPDATE
+  animals
+SET
+  owner_id = (
+    SELECT
+      id
+    FROM
+      owners
+    WHERE
+      full_name = 'Jennifer Orwell'
+  )
+WHERE
+  name IN ('Gabumon', 'Pikachu');
+
+UPDATE
+  animals
+SET
+  owner_id = (
+    SELECT
+      id
+    FROM
+      owners
+    WHERE
+      full_name = 'Bob'
+  )
+WHERE
+  name IN ('Devimon', 'Plantmon');
+
+UPDATE
+  animals
+SET
+  owner_id = (
+    SELECT
+      id
+    FROM
+      owners
+    WHERE
+      full_name = 'Melody Pond'
+  )
+WHERE
+  name IN ('Charmander', 'Squirtle', 'Blossom');
+
+UPDATE
+  animals
+SET
+  owner_id = (
+    SELECT
+      id
+    FROM
+      owners
+    WHERE
+      full_name = 'Dean Winchester'
+  )
+WHERE
+  name IN ('Angemon', 'Boarmon');
 
 COMMIT;
