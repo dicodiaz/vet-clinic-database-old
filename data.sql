@@ -319,3 +319,433 @@ WHERE
   name IN ('Angemon', 'Boarmon');
 
 COMMIT;
+
+-- Insert data into vets.
+INSERT INTO
+  vets(name, age, date_of_graduation)
+VALUES
+  (
+    'William Tatcher',
+    45,
+    TO_DATE('2000-04-23', 'YYYY-MM-DD')
+  ),
+  (
+    'Maisy Smith',
+    26,
+    TO_DATE('2019-01-17', 'YYYY-MM-DD')
+  ),
+  (
+    'Stephanie Mendez',
+    64,
+    TO_DATE('1981-05-04', 'YYYY-MM-DD')
+  ),
+  (
+    'Jack Harkness',
+    38,
+    TO_DATE('2008-06-08', 'YYYY-MM-DD')
+  );
+
+-- Insert data into specializations.
+INSERT INTO
+  specializations(vet_id, species_id)
+VALUES
+  (
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'William Tatcher'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        species
+      WHERE
+        name = 'Pokemon'
+    )
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'Stephanie Mendez'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        species
+      WHERE
+        name = 'Digimon'
+    )
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'Stephanie Mendez'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        species
+      WHERE
+        name = 'Pokemon'
+    )
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'Jack Harkness'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        species
+      WHERE
+        name = 'Digimon'
+    )
+  );
+
+-- Insert data into visits.
+INSERT INTO
+  visits(animal_id, vet_id, date_of_visit)
+VALUES
+  (
+    (
+      SELECT
+        id
+      FROM
+        animals
+      WHERE
+        name = 'Agumon'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'William Tatcher'
+    ),
+    TO_DATE('May 24 2020', 'Mon DD YYYY')
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        animals
+      WHERE
+        name = 'Agumon'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'Stephanie Mendez'
+    ),
+    TO_DATE('Jul 22 2020', 'Mon DD YYYY')
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        animals
+      WHERE
+        name = 'Gabumon'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'Jack Harkness'
+    ),
+    TO_DATE('Feb 2 2021', 'Mon DD YYYY')
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        animals
+      WHERE
+        name = 'Pikachu'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'Maisy Smith'
+    ),
+    TO_DATE('Jan 5 2020', 'Mon DD YYYY')
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        animals
+      WHERE
+        name = 'Pikachu'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'Maisy Smith'
+    ),
+    TO_DATE('Mar 8 2020', 'Mon DD YYYY')
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        animals
+      WHERE
+        name = 'Pikachu'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'Maisy Smith'
+    ),
+    TO_DATE('May 14 2020', 'Mon DD YYYY')
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        animals
+      WHERE
+        name = 'Devimon'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'Stephanie Mendez'
+    ),
+    TO_DATE('May 4 2021', 'Mon DD YYYY')
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        animals
+      WHERE
+        name = 'Charmander'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'Jack Harkness'
+    ),
+    TO_DATE('Feb 24 2021', 'Mon DD YYYY')
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        animals
+      WHERE
+        name = 'Squirtle'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'Stephanie Mendez'
+    ),
+    TO_DATE('Sep 29 2019', 'Mon DD YYYY')
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        animals
+      WHERE
+        name = 'Angemon'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'Jack Harkness'
+    ),
+    TO_DATE('Oct 3 2020', 'Mon DD YYYY')
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        animals
+      WHERE
+        name = 'Angemon'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'Jack Harkness'
+    ),
+    TO_DATE('Nov 4 2020', 'Mon DD YYYY')
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        animals
+      WHERE
+        name = 'Boarmon'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'Maisy Smith'
+    ),
+    TO_DATE('Jan 24 2019', 'Mon DD YYYY')
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        animals
+      WHERE
+        name = 'Boarmon'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'Maisy Smith'
+    ),
+    TO_DATE('May 15 2019', 'Mon DD YYYY')
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        animals
+      WHERE
+        name = 'Boarmon'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'Maisy Smith'
+    ),
+    TO_DATE('Feb 27 2020', 'Mon DD YYYY')
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        animals
+      WHERE
+        name = 'Boarmon'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'Maisy Smith'
+    ),
+    TO_DATE('Aug 3 2020', 'Mon DD YYYY')
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        animals
+      WHERE
+        name = 'Blossom'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'Stephanie Mendez'
+    ),
+    TO_DATE('May 24 2020', 'Mon DD YYYY')
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        animals
+      WHERE
+        name = 'Blossom'
+    ),
+    (
+      SELECT
+        id
+      FROM
+        vets
+      WHERE
+        name = 'William Tatcher'
+    ),
+    TO_DATE('Jan 11 2021', 'Mon DD YYYY')
+  );
