@@ -431,25 +431,6 @@ WHERE
   animal_id = 4;
 
 -- Optimization:
-BEGIN;
-
-ALTER TABLE
-  animals
-ADD
-  COLUMN count_of_visits INT;
-
-UPDATE
-  animals
-SET
-  count_of_visits = (
-    SELECT
-      COUNT(visits.animal_id)
-    FROM
-      visits
-    WHERE
-      visits.animal_id = animals.id
-  );
-
 EXPLAIN ANALYZE
 SELECT
   count_of_visits
@@ -458,13 +439,22 @@ FROM
 WHERE
   id = 4;
 
-COMMIT;
-
 -- Second query
-EXPLAIN ANALYZE SELECT * FROM visits WHERE vet_id = 2;
+EXPLAIN ANALYZE
+SELECT
+  *
+FROM
+  visits
+WHERE
+  vet_id = 2;
 
 -- Optimization:
-EXPLAIN ANALYZE SELECT animal_id, vet_id, date_of_visit FROM visits WHERE vet_id = 2; 
-
-
-
+EXPLAIN ANALYZE
+SELECT
+  animal_id,
+  vet_id,
+  date_of_visit
+FROM
+  visits
+WHERE
+  vet_id = 2;

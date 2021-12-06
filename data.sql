@@ -749,3 +749,15 @@ VALUES
     ),
     TO_DATE('Jan 11 2021', 'Mon DD YYYY')
   );
+
+UPDATE
+  animals
+SET
+  count_of_visits = (
+    SELECT
+      COUNT(visits.animal_id)
+    FROM
+      visits
+    WHERE
+      visits.animal_id = animals.id
+  );

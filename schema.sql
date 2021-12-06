@@ -134,6 +134,10 @@ SELECT
   'Owner ' || generate_series(1, 2500000),
   'owner_' || generate_series(1, 2500000) || '@mail.com';
 
+ALTER TABLE
+  animals
+ADD
+  COLUMN count_of_visits INT;
 
 CREATE INDEX vet_id_asc ON visits(vet_id ASC);
 
