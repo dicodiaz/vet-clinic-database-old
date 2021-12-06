@@ -458,3 +458,24 @@ FROM
   visits
 WHERE
   vet_id = 2;
+
+-- Third query
+EXPLAIN ANALYZE
+SELECT
+  *
+FROM
+  owners
+WHERE
+  email = 'owner_18327@mail.com';
+
+-- Optimization
+EXPLAIN ANALYZE
+SELECT
+  id,
+  full_name,
+  age,
+  email
+FROM
+  owners
+WHERE
+  email = 'owner_18327@mail.com';
