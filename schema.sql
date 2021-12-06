@@ -134,6 +134,9 @@ SELECT
   'Owner ' || generate_series(1, 2500000),
   'owner_' || generate_series(1, 2500000) || '@mail.com';
 
+
+CREATE INDEX vet_id_asc ON visits(vet_id ASC);
+
 -- Other commands that I found helpful but aren't a part of the project:
 -- Add constrain to animals.escape_attempts field so that it can only contain positive values or zero.
 ALTER TABLE

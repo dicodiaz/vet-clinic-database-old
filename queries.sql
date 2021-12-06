@@ -459,3 +459,12 @@ WHERE
   id = 4;
 
 COMMIT;
+
+-- Second query
+EXPLAIN ANALYZE SELECT * FROM visits WHERE vet_id = 2;
+
+-- Optimization:
+EXPLAIN ANALYZE SELECT animal_id, vet_id, date_of_visit FROM visits WHERE vet_id = 2; 
+
+
+
