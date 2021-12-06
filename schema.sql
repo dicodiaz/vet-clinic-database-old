@@ -100,6 +100,40 @@ CREATE TABLE visits(
   CONSTRAINT fk_vet FOREIGN KEY(vet_id) REFERENCES vets(id) ON DELETE CASCADE
 );
 
+ALTER TABLE
+  owners
+ADD
+  COLUMN email VARCHAR(120);
+
+INSERT INTO
+  visits (animal_id, vet_id, date_of_visit)
+SELECT
+  *
+FROM
+  (
+    SELECT
+      id
+    FROM
+      animals
+  ) animal_ids,
+  (
+    SELECT
+      id
+    FROM
+      vets
+  ) vets_ids,
+  generate_series(
+    '1980-01-01' :: timestamp,
+    '2021-01-01',
+    '4 hours'
+  ) visit_timestamp;
+
+INSERT INTO
+  owners (full_name, email)
+SELECT
+  'Owner ' || generate_series(1, 2500000),
+  'owner_' || generate_series(1, 2500000) || '@mail.com';
+
 -- Other commands that I found helpful but aren't a part of the project:
 -- Add constrain to animals.escape_attempts field so that it can only contain positive values or zero.
 ALTER TABLE

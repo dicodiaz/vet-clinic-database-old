@@ -420,3 +420,42 @@ ORDER BY
   COUNT(visits.date_of_visit) DESC
 LIMIT
   1;
+
+-- First query
+EXPLAIN ANALYZE
+SELECT
+  COUNT(*)
+FROM
+  visits
+WHERE
+  animal_id = 4;
+
+-- Optimization:
+BEGIN;
+
+ALTER TABLE
+  animals
+ADD
+  COLUMN count_of_visits INT;
+
+UPDATE
+  animals
+SET
+  count_of_visits = (
+    SELECT
+      COUNT(visits.animal_id)
+    FROM
+      visits
+    WHERE
+      visits.animal_id = animals.id
+  );
+
+EXPLAIN ANALYZE
+SELECT
+  count_of_visits
+FROM
+  animals
+WHERE
+  id = 4;
+
+COMMIT;
