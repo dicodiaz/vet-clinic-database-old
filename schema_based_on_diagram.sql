@@ -15,3 +15,18 @@ CREATE TABLE medical_histories (
     CONSTRAINT fk_medical_histories_patient_id FOREIGN KEY(patient_id) REFERENCES patients(id) ON DELETE CASCADE,
     CONSTRAINT chk_medical_histories_admitted_at CHECK (admitted_at < CURRENT_TIMESTAMP)
 );
+
+CREATE TABLE treatments (
+    id INT GENERATED ALWAYS AS IDENTITY,
+    type VARCHAR(250) NOT NULL,
+    name VARCHAR(250) NOT NULL,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE join_table_histories_treatments (
+    medical_histories_id INT NOT NULL,
+    treatments_id INT NOT NULL,
+    FOREIGN KEY (medical_histories_id) REFERENCES medical_histories(id),
+    FOREIGN KEY (treatments_id) REFERENCES treatments(id)
+);
+
