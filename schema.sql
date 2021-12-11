@@ -134,14 +134,23 @@ SELECT
   'Owner ' || generate_series(1, 2500000),
   'owner_' || generate_series(1, 2500000) || '@mail.com';
 
+-- Denormalization for first query optimization
 ALTER TABLE
   animals
 ADD
   COLUMN count_of_visits INT;
 
+-- Non-clustered index for second query optimization
 CREATE INDEX vet_id_asc ON visits(vet_id ASC);
 
+-- Equalizing random_page_cost to seq_page_cost default value so that the system prefers index scans
+SET
+  random_page_cost TO 1;
+
+-- Non-clustered index for third query optimization
 CREATE INDEX email_desc ON owners(email DESC);
+
+DROP INDEX email_desc;
 
 -- Other commands that I found helpful but aren't a part of the project:
 -- Add constrain to animals.escape_attempts field so that it can only contain positive values or zero.

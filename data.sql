@@ -750,6 +750,7 @@ VALUES
     TO_DATE('Jan 11 2021', 'Mon DD YYYY')
   );
 
+-- Run after inserting or deleting from visits table. This is needed because of denormalization.
 UPDATE
   animals
 SET

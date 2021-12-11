@@ -430,7 +430,7 @@ FROM
 WHERE
   animal_id = 4;
 
--- Optimization:
+-- First query after denormalization:
 EXPLAIN ANALYZE
 SELECT
   count_of_visits
@@ -448,33 +448,10 @@ FROM
 WHERE
   vet_id = 2;
 
--- Optimization:
-EXPLAIN ANALYZE
-SELECT
-  animal_id,
-  vet_id,
-  date_of_visit
-FROM
-  visits
-WHERE
-  vet_id = 2;
-
 -- Third query
 EXPLAIN ANALYZE
 SELECT
   *
-FROM
-  owners
-WHERE
-  email = 'owner_18327@mail.com';
-
--- Optimization
-EXPLAIN ANALYZE
-SELECT
-  id,
-  full_name,
-  age,
-  email
 FROM
   owners
 WHERE
